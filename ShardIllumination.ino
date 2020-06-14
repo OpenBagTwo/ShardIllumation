@@ -10,9 +10,11 @@
   with Wi-Fi controls (read: Blynk app).
 
   The circuit:
-  * 3 2N2222 BJTs
-  * 3 10kΩ linear rotary potentiometers
   * 3 220Ω resistors
+  * 1 10kΩ resistor
+  * 3 10kΩ linear rotary potentiometers
+  * 1 tactile push button
+  * 3 2N2222 NPN BJTs
   * 1 MT3608 boost converter with Micro USB input (the Micro
     USB port is optional, as you could always power the circuit
     through the Arduino Nano)
@@ -46,7 +48,7 @@ const int animation_wait_time = 500;              // time between frames of the 
 // set pins
 const int rgb_pins[3] = {3, 5, 6};                // LED output pins (R, G, B)
 const int color_control_pins[3] = {A0, A1, A2};   // controller pins (R, G, B)
-const int push_button = 1;                        // tactile push button
+const int push_button_pin = 12;                   // tactile push button
 
 // global variables
 int iter;                                         // frame number of the idle / demo animation
@@ -64,7 +66,7 @@ void setup() {
     pinMode(rgb_pins[i], OUTPUT);
     pinMode(color_control_pins, INPUT);
   }
-  pinMode(push_button, INPUT);
+  pinMode(push_button_pin, INPUT);
 }
 
 void loop() {
@@ -130,7 +132,7 @@ bool isButtonPressed(){
   unsigned int currentTime = millis();
   if (currentTime - lastPress < 200)
     return 0; // prevent double-press
-  if (digitalRead(push_button) == LOW){
+  if (digitalRead(push_button_pin) == LOW){
     Serial.println("Button pressed");
     lastPress = currentTime;
     return 1;
