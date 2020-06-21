@@ -11,6 +11,8 @@ are:
   palette
 - [MicCalibrate](MicCalibrate/MicCalibrate.ino), for calibrating the input coming
   from a microphone input
+- [IndoorVoice](IndoorVoice/IndoorVoice.ino): illuminates the shard based on an
+  analog signal from a microphone
 - [TooShrill](TooShrill/TooShrill.ino): the most complex variant, where the illumination
   color and intensity is a function of an amplified microphone signal, sent through a
   high-pass filter
@@ -34,7 +36,23 @@ folders and then change the `#include` line to use quotes instead of angle-brack
 move / symlink the header to a folder within your Arduino "libraries" folder.
 
 ## Operation
-Coming soon!
+These are simple example sketches that are widely adaptable to a variety of
+microcontrollers and LED setups. As a consequence, while these sketches were runnable
+for me given the hardware specified in each sketch, you'll likely have to lightly adapt
+these sketches to serve your exact use-case. Even when replicating my exact circuit,
+you'll need to upload and run [MicCalibrate](MicCalibrate/MicCalibrate.ino) and view the
+output on the serial plotter in order to choose the signal levels for your color mappings.
+
+Once you've tweaked the parameters to your liking, you should be good to upload an
+illumination sketch to your microcontroller. None of these sketches involve physical
+input, as they either display hard-coded animations
+([DemoIllumination](DemoIllumination/DemoIllumination.ino),
+[MappingTest](MappingTest/MappingTest.ino)) or are controlled by the input from an analog
+input pin, [IndoorVoice](IndoorVoice/IndoorVoice.ino),
+[TooShrill](TooShrill/TooShrill.ino)).
+
+So once you've uploaded the code, you can power your circuit via USB or whatever power
+system you'd like, and the code should just work.
 
 ## Demos
 Coming soon!
