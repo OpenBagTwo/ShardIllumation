@@ -36,17 +36,17 @@
 # include <illumination_utils.h>
 
 // set constants
-const int n_readings = 5;                       // number of analogRead measurements to average (noise reduction)
+const int n_readings = 11;                      // number of analogRead measurements to average (noise reduction)
 const int window = 100;                         // number of records to average to arrive at input intensity
 const LinearColorMap color_mappings[3] = {      // mapping of input values to analogWrite intensity (0-255)
-  LinearColorMap(200, 400),                     // red
-  LinearColorMap( 25, 200),                     // green
-  LinearColorMap(100, 300)                      // blue
+  LinearColorMap(400, 600),                     // red
+  LinearColorMap( 50, 200),                     // green
+  LinearColorMap(100, 500)                      // blue
 };  // note: Arduino Nano compiler allows this array to be const, ESP8266 compiler does not
 
 // set GPIO pins
 const int rgb_pins[3] = {3, 9, 11};             // LED output pins (R, G, B)
-const int mic_pin = A0;                         // microphone input pin
+const int mic_pin = A5;                         // microphone input pin
 
 // declare global variables
 int idx;                                        // current iteration
@@ -68,7 +68,7 @@ void setup() {
 
 void loop() {
   
-  int measurement = measureSignal(mic_pin, 512, n_readings);
+  int measurement = measureAmplitude(mic_pin, n_readings);
   history[idx++ % window] = measurement;
 
   int rolling_average = calculateAverage(history, window);
