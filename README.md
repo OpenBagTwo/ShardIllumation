@@ -9,9 +9,11 @@ are:
   palette of nine colors in sequence
 - [MappingTest](MappingTest/MappingTest.ino), for trying out a continuous color
   palette
+- [MicCalibrate](MicCalibrate/MicCalibrate.ino), for calibrating the input coming
+  from a microphone input
 - [TooShrill](TooShrill/TooShrill.ino): the most complex variant, where the illumination
   color and intensity is a function of an amplified microphone signal, sent through a
-  high-pass filter.
+  high-pass filter
 
 ## Circuit Diagram
 ![Circuit for TooShrill sketch](TooShrill.png)
