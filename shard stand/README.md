@@ -7,4 +7,5 @@ manufactured by the same folks who made my CNC. The underside is hollowed out to
 the electronics, with a cut-out for a USB cable to provide power.
 
 ![from above](images/from_above.jpg)
+
 ![from below](images/from_below.jpg)
