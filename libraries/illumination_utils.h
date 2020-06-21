@@ -19,6 +19,7 @@ int measureSignal(int analog_pin, int zero, int n_readings){
   int readings[n_readings];
   for (int i=0; i<n_readings; i++){
     int raw_value = analogRead(analog_pin);
+    delay(1);
     readings[i] = abs(raw_value - zero);
     if (readings[i] < readings[min_idx]){
       min_idx = i;
@@ -47,11 +48,11 @@ int measureSignal(int analog_pin, int zero, int n_readings){
  * returns : integer average of provided array
  */
 int calculateAverage(int values_to_average[], int len){
-  int sum = 0;
+  long sum = 0;
   for (int i=0; i<len; i++){
-    sum += values_to_average[i];
+    sum += long(values_to_average[i]);
   }
-  return sum/len;
+  return int(sum/len);
 }
 
 /*

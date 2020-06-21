@@ -66,7 +66,7 @@ int idx;                                        // current iteration
 int history[window];                            // history of readings
 
 void setup() {
-  pinMode(A0, INPUT);
+  pinMode(mic_pin, INPUT);
   Serial.begin(9600);
   idx = 0;
   for (int i=0; i<window; i++){
