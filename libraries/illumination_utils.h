@@ -2,21 +2,24 @@
 /*
  * Function:  measureSignal
  * ------------------------
- * Take measurements from the analog input pin, remove
- * the largest and smallest values, then average the
- * remainder.
+ * Take measurements from the analog input pin, take the
+ * absolute value with respect to the zero signal point,
+ * then throw out the largest and smallest reading (noise
+ * reduction) and average the rest.
  * 
  * analog_pin : pin number from which to read the signal
+ * zero : level corresponding to zero signal
  * n_readings : number of readings to take
  * 
  * returns : average reading, after discarding max and min
  */
-int measureSignal(int analog_pin, int n_readings){
+int measureSignal(int analog_pin, int zero, int n_readings){
   int min_idx = 0;
   int max_idx = 0;
   int readings[n_readings];
   for (int i=0; i<n_readings; i++){
-    readings[i] = analogRead(A0);
+    int raw_value = analogRead(analog_pin);
+    readings[i] = abs(raw_value - zero);
     if (readings[i] < readings[min_idx]){
       min_idx = i;
     }
