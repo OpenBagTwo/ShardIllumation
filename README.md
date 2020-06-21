@@ -14,7 +14,11 @@ are:
   high-pass filter.
 
 ## Circuit Diagram
-Coming soon!
+[!Circuit for TooShrill sketch](TooShrill.png)
+
+This is the most complex variant of this project, with a USB boost converter powering
+the circuit mainly because I wanted USB power but didn't want to use the mini USB port
+in the Arduino Nano.
 
 ## Parts List
 Coming soon!
