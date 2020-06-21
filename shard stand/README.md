@@ -6,5 +6,5 @@ piece of [this acrylic glass](https://www.amazon.com/gp/product/B07ZPZQZM3), whi
 manufactured by the same folks who made my CNC. The underside is hollowed out to hold all
 the electronics, with a cut-out for a USB cable to provide power.
 
-![from above](images/from_above.jpg | width=100)
-![from below](images/from_below.jpg | width=100)
+![from above](images/from_above.jpg)
+![from below](images/from_below.jpg)
