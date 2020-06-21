@@ -14,7 +14,7 @@ are:
   high-pass filter.
 
 ## Circuit Diagram
-[!Circuit for TooShrill sketch](TooShrill.png)
+![Circuit for TooShrill sketch](TooShrill.png)
 
 This is the most complex variant of this project, with a USB boost converter powering
 the circuit mainly because I wanted USB power but didn't want to use the mini USB port
