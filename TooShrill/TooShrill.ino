@@ -81,7 +81,7 @@ void setup() {
 
 void loop() {
   
-  int measurement = measureSignal(mic_pin, n_readings);
+  int measurement = measureSignal(mic_pin, 0, n_readings);
   history[idx++ % window] = measurement;
 
   int rolling_average = calculateAverage(history, window);
