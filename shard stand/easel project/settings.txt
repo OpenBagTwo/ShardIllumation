@@ -1,0 +1,3 @@
+Material type: Soft Maple
+Material dimensions: 220 mm x 64.28 mm x 19.21 mm
+Bit: 0.125 in, Straight cut

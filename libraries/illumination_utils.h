@@ -19,7 +19,6 @@ int measureSignal(int analog_pin, int zero, int n_readings){
   int readings[n_readings];
   for (int i=0; i<n_readings; i++){
     int raw_value = analogRead(analog_pin);
-    delay(1);
     readings[i] = abs(raw_value - zero);
     if (readings[i] < readings[min_idx]){
       min_idx = i;
@@ -35,6 +34,44 @@ int measureSignal(int analog_pin, int zero, int n_readings){
     }
   }
   return sum / (n_readings-2);
+}
+
+
+/*
+ * Function:  measureAmplitude
+ * ---------------------------
+ * Take measurements from the analog input pin and get
+ * the difference between the SECOND highest and SECOND
+ * lowest values (throw out extrema as a means of
+ * noise reduction) 
+ * 
+ * analog_pin : pin number from which to read the signal
+ * n_readings : number of readings to take
+ * 
+ * returns : peak-to-peak amplitude, after discarding max and min
+ */
+int measureAmplitude(int analog_pin, int n_readings){
+  int lowest[2] = {1024, 1024};
+  int highest[2] = {0, 0};
+  int second_lowest;
+  int second_highest;
+
+  for (int i=0; i<n_readings; i++){
+    int reading = analogRead(analog_pin);
+    if (reading < lowest[0]){
+      lowest[1] = lowest[0];
+      lowest[0] = reading;
+    } else if (reading < lowest[1]){
+      lowest[1] = reading;
+    }
+    if (reading > highest[0]){
+      highest[1] = highest[0];
+      highest[0] = reading;
+    } else if (reading > highest[1]){
+      highest[1] = reading;
+    }
+  }
+  return highest[1] - lowest[1];
 }
 
 /*

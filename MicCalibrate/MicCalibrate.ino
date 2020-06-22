@@ -6,8 +6,10 @@
 
   Takes in analog signal and prints the following to Serial:
   * raw measurement
-  * "smoothed" measurement
-  * average value over window period
+  * "smoothed" measurement (average of difference from "zero" for n_readings, discarding max and min)
+  * amplitude measurement (peak-to-peak measurement for n_readings, discarding max and min)
+  * average smoothed over window period
+  * average amplitude measurement over window period
 
   This sketch was tested using an Arduino Nano, but it really
   should work with *any* microcontroller with an analog input
@@ -22,38 +24,46 @@
 
 
 // set constants
-const int n_readings = 5;                       // number of analogRead measurements to average (noise reduction)
+const int n_readings = 11;                       // number of analogRead measurements to average (noise reduction)
 const int window = 100;                         // number of records to average to arrive at input intensity
 
 // set GPIO pins
-const int mic_pin = A0;                         // microphone input pin
+const int mic_pin = A5;                         // microphone input pin
 
 // declare global variables
 int idx;                                        // current iteration
-int history[window];                            // history of readings
+int history_smoothed[window];                   // history of smoothed readings
+int history_amplitude[window];                  // history of amplitude readings
 
 void setup() {
   pinMode(mic_pin, INPUT);
   Serial.begin(9600);
   idx = 0;
   for (int i=0; i<window; i++){
-    history[i] = 0;
+    history_smoothed[i] = 0;
+    history_amplitude[i] = 0;
   }
 }
 
 void loop() {
 
-  int raw_measurement = analogRead(mic_pin) - 512;
-  raw_measurement = abs(raw_measurement);
+  int raw_measurement = analogRead(mic_pin);
   
-  int measurement = measureSignal(mic_pin, 512, n_readings);
-  history[idx++ % window] = measurement;
+  int smoothed_measurement = measureSignal(mic_pin, 512, n_readings);
+  history_smoothed[idx % window] = smoothed_measurement;
+  int amplitude_measurement = measureAmplitude(mic_pin, n_readings);
+  history_amplitude[idx % window] = amplitude_measurement;
 
-  int rolling_average = calculateAverage(history, window);
+  idx ++;
+
+  int rolling_average_smoothed = calculateAverage(history_smoothed, window);
+  int rolling_average_amplitude = calculateAverage(history_amplitude, window);
 
   Serial.println(String(raw_measurement)
-                 + " " + String(measurement)
-                 + " " + String(rolling_average)
+                 + " " + String(smoothed_measurement)
+                 + " " + String(amplitude_measurement)
+                 + " " + String(rolling_average_smoothed)
+                 + " " + String(rolling_average_amplitude)
                  );
 
   delay(1);
